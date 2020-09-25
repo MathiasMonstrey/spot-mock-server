@@ -12,6 +12,7 @@ Future<void> main(List<String> args) async {
 
   try {
     var request = GetAuthTokenRequest()
+      ..token = "AppToken"
       ..username = "Mathias"
       ..password = "Test1234";
     var response = await stub.getAuthToken(request);
