@@ -5,10 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "SpotClient",
+      "request": "launch",
+      "type": "dart",
+      "program": "bin/test-client.dart"
+    },
+    {
       "name": "SpotServer",
       "request": "launch",
       "type": "dart",
-      "program": "bin/Spot.dart"
+      "program": "bin/spot.dart"
     }
   ]
 }

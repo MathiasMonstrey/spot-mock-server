@@ -1,9 +1,7 @@
-import 'package:grpc/grpc.dart';
-import 'package:SpotMockServer/bosdyn/api/auth.pb.dart';
-import 'package:SpotMockServer/bosdyn/api/auth_service.pbgrpc.dart';
+import 'mt/client.dart';
 
 Future<void> main(List<String> args) async {
-  final channel = ClientChannel(
+  /* final channel = ClientChannel(
     'localhost',
     port: 1337,
     options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
@@ -20,5 +18,13 @@ Future<void> main(List<String> args) async {
   } catch (e) {
     print('Caught error: $e');
   }
-  await channel.shutdown();
+  await channel.shutdown(); */
+
+  const String hostname = "127.0.0.1";
+  const String username = "mathias";
+  const String password = "spot";
+
+  var sdk = new MTClient().createStandardSdk("hello_world");
+  var robot = sdk.createRobot(hostname);
+  robot.authenticate(username, password);
 }
