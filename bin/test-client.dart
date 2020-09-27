@@ -24,7 +24,9 @@ Future<void> main(List<String> args) async {
   const String username = "mathias";
   const String password = "spot";
 
-  var sdk = new MTClient().createStandardSdk("hello_world");
+  var sdk = new MTClient().createStandardSdk(
+    "hello_world",
+  );
   var robot = sdk.createRobot(hostname);
   robot.authenticate(username, password);
 }

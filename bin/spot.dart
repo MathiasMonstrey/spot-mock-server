@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:SpotMockServer/bosdyn/api/robot_id.pb.dart';
 import 'package:SpotMockServer/bosdyn/api/robot_id_service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
@@ -14,6 +16,12 @@ class AuthService extends AuthServiceBase {
 
 class RobotService extends RobotIdServiceBase {
   @override
+  Future<RobotIdResponse> getRobotId_Pre(
+      ServiceCall call, Future<RobotIdRequest> request) {
+    return super.getRobotId_Pre(call, request);
+  }
+
+  @override
   Future<RobotIdResponse> getRobotId(
       ServiceCall call, RobotIdRequest request) async {
     return RobotIdResponse()
@@ -27,6 +35,12 @@ class RobotService extends RobotIdServiceBase {
 
 Future<void> main(List<String> args) async {
   final server = Server([AuthService(), RobotService()]);
-  await server.serve(port: 443);
+
+  await server.serve(
+      port: 443,
+      security: ServerTlsCredentials(
+          privateKey: new File("./lib/resources/server.key").readAsBytesSync(),
+          certificate:
+              new File("./lib/resources/server.crt").readAsBytesSync()));
   print('Spot Mock Server is listening on port ${server.port}...');
 }
